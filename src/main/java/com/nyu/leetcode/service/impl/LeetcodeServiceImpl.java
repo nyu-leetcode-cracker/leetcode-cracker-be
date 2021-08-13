@@ -2,6 +2,7 @@ package com.nyu.leetcode.service.impl;
 
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.json.JSONUtil;
+import com.nyu.leetcode.base.constant.ZonedTimeConstants;
 import com.nyu.leetcode.domain.dto.UserDailySubmission;
 import com.nyu.leetcode.domain.entity.Question;
 import com.nyu.leetcode.domain.entity.Submission;
@@ -14,8 +15,9 @@ import org.springframework.util.CollectionUtils;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -79,7 +81,7 @@ public class LeetcodeServiceImpl implements LeetcodeService {
     }
 
     private boolean isAcceptedSubmissionToday(Submission sub) {
-        LocalDateTime start = LocalDate.now().atStartOfDay();
+        ZonedDateTime start = ZonedDateTime.now(ZonedTimeConstants.NEW_YORK_TIMEZONE).truncatedTo(ChronoUnit.DAYS);
         return sub.getSubmitDateTime().isAfter(start)
                        && ACCEPTED.equals(sub.getStatus());
     }

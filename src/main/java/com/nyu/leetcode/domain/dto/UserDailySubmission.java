@@ -1,5 +1,6 @@
 package com.nyu.leetcode.domain.dto;
 
+import com.nyu.leetcode.base.utils.ZonedTimeUtils;
 import com.nyu.leetcode.domain.entity.Question;
 import lombok.Data;
 
@@ -20,5 +21,9 @@ public class UserDailySubmission {
 
     public Boolean getFinished() {
         return problemsFinished >= problemsShouldBeFinished;
+    }
+
+    public String getSubmissionDate() {
+        return ZonedTimeUtils.toNewYorkDate(timestamp);
     }
 }

@@ -1,9 +1,10 @@
 package com.nyu.leetcode.domain.entity;
 
 import cn.hutool.core.date.DateUtil;
+import com.nyu.leetcode.base.constant.ZonedTimeConstants;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 /**
  * @author :zixiaotong
@@ -16,7 +17,7 @@ public class Submission {
     private Question question;
     private Long submitTime;
 
-    public LocalDateTime getSubmitDateTime() {
-        return DateUtil.toLocalDateTime(DateUtil.date(submitTime * 1000));
+    public ZonedDateTime getSubmitDateTime() {
+        return ZonedDateTime.ofInstant(DateUtil.date(submitTime * 1000).toInstant(), ZonedTimeConstants.SHANGHAI_TIMEZONE);
     }
 }
